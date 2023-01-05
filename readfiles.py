@@ -1,7 +1,7 @@
 import glob
 import os
 import time
-
+import pandas as pd
 
 filelist = []
 
@@ -16,21 +16,14 @@ for path, subdirs, files in os.walk(r'D:/'):
 
 
 
-import pandas as pd
-
-
-
 test = [sub.replace(' - ', ' #-# ', 3) for sub in filelist]
 test_df = pd.DataFrame(test, columns=['col1'])
 test_df[['created','modified','size','name']] = test_df['col1'].str.split(' #-# ',expand=True)
 
 
-test_df.to_csv('D:/filelist_20221126_2.csv', index=False)
-
-
+test_df.to_csv('D:/filelist.csv', index=False)
 
 my_df = pd.DataFrame(filelist, columns=['col1'])
-my_df.to_csv('D:/filelist_20221126.csv', index=False)
-
+my_df.to_csv('D:/filelist.csv', index=False)
 
 test_df['size'] = test_df['size'].astype(float)
